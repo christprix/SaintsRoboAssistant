@@ -31,7 +31,7 @@ result = speech_synthesizer.speak_text_async(text).get()
 fs = 44100
 
 #input recording time
-second = int(input("enter the recording time in seconds: "))
+second = int(10)
 print("begin recording")
 
 #record voice
@@ -39,6 +39,10 @@ record_voice = sounddevice.rec(int(second * fs), samplerate=fs, channels=2)
 sounddevice.wait()
 print('end recording')
 write("Myrecording2.wav", fs, record_voice)
+
+#active listening
+text="Hmmm, let me see."
+result = speech_synthesizer.speak_text_async(text).get()
 
 #SPEECH TO TEXT
 audio_file= open("./Myrecording2.wav", "rb")
@@ -52,7 +56,7 @@ print(transcription.text)
 completion = client.chat.completions.create(
   model="gpt-3.5-turbo",
   messages=[
-    {"role": "system", "content": "You are an assistant helping me understand science."},
+    {"role": "system", "content": "You are teacher helping me learn networking and computer concepts. Try to keep your answers short and easy to understand"},
     {"role": "user", "content": transcription.text}
   ]
 )
